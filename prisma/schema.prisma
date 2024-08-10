@@ -13,6 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id          String   @id @default(uuid())
+model User {
+  id          String    @id @default(uuid())
+  username    String
+  password    String
+  createdTime DateTime? @default(now())
+  updatedTime DateTime? @default(now())
+  deletedTime DateTime? @default(now())
+}
+
+model Secret {
+  id     String @id @default(uuid())
+  key    String
+  type   String
+  value  String
+  userId String
+  createdTime DateTime? @default(now())
+  updatedTime DateTime? @default(now())
+  deletedTime DateTime? @default(now())
 }
