@@ -26,9 +26,9 @@ export const checkAuth = async (
 
   try {
     const secret = await secretService.getSecret(payload.data.secretId)
-    const user = await userService.getUserByUserId(secret.userId)
+    await userService.getUserByUserId(secret.userId)
 
-    if (!verifyToken(token, secret.key)) {
+    if (!verifyToken(token, secret.value)) {
       return reply
         .code(401)
         .send('unauthorized')

@@ -58,7 +58,7 @@ export const routes: FastifyPluginAsync = async (app) => {
     })
   
     newApp.post('/users/query/:id', async (request: WithParams<{ id: string }>, reply) => {
-      const user = await service.getUserByUsername(request.params.id)
+      const user = await service.getUserByUserId(request.params.id)
       return user
     })
   
