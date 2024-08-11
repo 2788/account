@@ -15,20 +15,20 @@ datasource db {
 
 model User {
   id          String    @id @default(uuid())
-  username    String
+  username    String    @unique
   password    String
-  createdTime DateTime? @default(now())
+  createdTime DateTime  @default(now())
   updatedTime DateTime? @default(now())
-  deletedTime DateTime? @default(now())
+  deletedTime DateTime?
 }
 
 model Secret {
-  id     String @id @default(uuid())
-  key    String
+  id     String         @id @default(uuid())
+  key    String         @default(uuid())
   type   String
   value  String
   userId String
-  createdTime DateTime? @default(now())
+  createdTime DateTime  @default(now())
   updatedTime DateTime? @default(now())
-  deletedTime DateTime? @default(now())
+  deletedTime DateTime?
 }

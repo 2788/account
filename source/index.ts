@@ -2,7 +2,8 @@ import Fastify from 'fastify'
 
 import pkg from '../package.json'
 
-import { user } from './service/user'
+import { routes as userRoutes } from './modules/user'
+import { routes as secretRoutes } from './modules/secret'
 
 console.log("Version:", pkg.version)
 
@@ -10,7 +11,8 @@ const apiPort = process.env.API_PORT
 const debugLog = process.env.DEBUG_LOG
 const fastify = Fastify({ logger: debugLog == 'true' })
 
-fastify.register(user, { prefix: '/' })
+fastify.register(userRoutes)
+fastify.register(secretRoutes)
 
 fastify.listen({ port: 3000 })
   .then(() => console.log(`api server started on port ${apiPort}`))
