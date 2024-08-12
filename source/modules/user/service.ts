@@ -16,22 +16,35 @@ export async function createUser(account: Account) {
 }
 
 export async function getUserByUsername(username: string) {
-  const user = await db.user.findFirstOrThrow({ where: { username } })
-  if (user.deletedTime == null || new Date(user.deletedTime).getTime() > Date.now()) {
-    return user
-  }
-
-  throw new Error('User has been deleted')
+  return db.user.findFirstOrThrow({
+    where: {
+      username,
+      OR: [
+        {
+          deletedTime: { equals: null }
+        },
+        {
+          deletedTime: { not: null, gt: new Date() }
+        },
+      ],
+    }
+  })
 }
 
 export async function getUserByUserId(id: string) {
-  const user = await db.user.findFirstOrThrow({ where: { id } })
-
-  if (user.deletedTime == null || new Date(user.deletedTime).getTime() > Date.now()) {
-    return user
-  }
-
-  throw new Error('User has been deleted')
+  return db.user.findFirstOrThrow({
+    where: {
+      OR: [
+        {
+          deletedTime: { equals: null }
+        },
+        {
+          deletedTime: { not: null, gt: new Date() }
+        },
+      ],
+      id
+    }
+  })
 }
 
 export function deleteUser(id: string) {

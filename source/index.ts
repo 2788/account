@@ -14,6 +14,6 @@ const fastify = Fastify({ logger: debugLog == 'true' })
 fastify.register(userRoutes)
 fastify.register(secretRoutes)
 
-fastify.listen({ port: 3000 })
+fastify.listen({ port: Number(apiPort), host: '0.0.0.0' })
   .then(() => console.log(`api server started on port ${apiPort}`))
   .catch(error => console.error('api server listen error', error))
